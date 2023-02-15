@@ -49,7 +49,7 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          npm cache clear --force
+          npm prune --production
           npm install
           npm run bootstrap --if-present
           npm run next:build --if-present
