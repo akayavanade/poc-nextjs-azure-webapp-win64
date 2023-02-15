@@ -38,21 +38,17 @@ jobs:
     
     steps:
       - uses: actions/checkout@v3.3.0
-      
-      
-      
+
       - name: Set up Node.js version
         uses: actions/setup-node@v3.6.0
         with:
           node-version: '18.x'
           #cache: 'npm'
 
-      - name: npm install, build, and test
+      - name: npm install and build
         run: |
-          npm prune --production
           npm install
-          npm run bootstrap --if-present
-          npm run next:build --if-present
+          npm run build --if-present
       
       - name: 7z release
         run: 7z a -t7z -mx=9 release.7z .
