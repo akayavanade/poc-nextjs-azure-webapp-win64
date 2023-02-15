@@ -31,7 +31,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-22.04
     #environment:
     #  name: 'Production'
     #  url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
@@ -61,7 +61,7 @@ jobs:
           path: release.7z
 
   deploy:
-    runs-on: windows-latest
+    runs-on: ubuntu-22.04
     needs: build
     environment:
       name: 'Production'
@@ -77,13 +77,22 @@ jobs:
         run: 7z x release.7z -bb1
 
       - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
         with:
-          app-name: 'usw-s1-sc-nextp'
-          slot-name: 'poc'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_71D1AE737E8346998C25F25A74553978 }}
+          app-name: 'poc-nextjs-20230215'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0710BCA6D47E4BB284DAEC78E79D3A72 }}
           package: .
+
+      #- name: 'Deploy to Azure Web App'
+      #  uses: azure/webapps-deploy@v2
+      #  id: deploy-to-webapp
+      #  with:
+      #    app-name: 'usw-s1-sc-nextp'
+      #    slot-name: 'poc'
+      #    publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_71D1AE737E8346998C25F25A74553978 }}
+      #    package: .
 #      - name: 'Deploy to Azure Web App'
 #        id: deploy-to-webapp
 #        uses: azure/webapps-deploy@v2
