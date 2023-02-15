@@ -80,7 +80,7 @@ jobs:
         run: 7z x release.7z
 
       - name: Delete release archive
-        run: rm-rf release.7z
+        run: rm -rf release.7z
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
